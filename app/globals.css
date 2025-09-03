@@ -1,6 +1,6 @@
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #faecc6; /* светло-желтовато-бежевый */
+  --foreground: #171717; /* тёмный текст */
 }
 
 @media (prefers-color-scheme: dark) {
@@ -14,14 +14,16 @@ html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
+  scroll-behavior: smooth;
 }
 
 body {
   color: var(--foreground);
-  background: var(--background);
+  background: var(--background); /* основной фон: теплая бежево-желтая гамма */
   font-family: Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
 }
 
 * {
@@ -40,3 +42,18 @@ a {
     color-scheme: dark;
   }
 }
+
+/* волнистый фон задается SVG в layout.tsx и не прописывается тут,
+   но если требуется плавно продолжать фон, можно добавить легкую зеленую тень: */
+/* body::before {
+  content: '';
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 120px;
+  pointer-events: none;
+  z-index: 0;
+  background: linear-gradient(180deg, #77d39a66 0 80px, transparent 120px);
+} */
