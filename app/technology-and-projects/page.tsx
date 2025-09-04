@@ -2,16 +2,8 @@
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 
-// react-pdf-viewer only on client; SSR fallback
-const Worker = dynamic(
-  () => import('@react-pdf-viewer/core').then((mod) => mod.Worker),
-  { ssr: false }
-);
-const Viewer = dynamic(
-  () => import('@react-pdf-viewer/core').then((mod) => mod.Viewer),
-  { ssr: false }
-);
-import '@react-pdf-viewer/core/lib/styles/index.css';
+// Динамический импорт для client-only PDF-вьюера, избегая SSR и ошибок canvas
+const PDFViewerNoSSR = dynamic(() => import('./PdfViewer'), { ssr: false });
 
 export default function TechnologyAndProjects() {
   return (
@@ -85,12 +77,8 @@ export default function TechnologyAndProjects() {
             padding: '24px 0',
           }}
         >
-          {/* Клиентский PDF-плеер */}
-          <div style={{ width: '99%', minHeight: 400, background: '#fff' }}>
-            <Worker workerUrl='https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.js'>
-              <Viewer fileUrl='/Presentation_of_an_energy-efficient_technical_solution.pdf' />
-            </Worker>
-          </div>
+          {/* PDF-вьюер загружается только на клиенте */}
+          <PDFViewerNoSSR />
           <a
             href='/Presentation_of_an_energy-efficient_technical_solution.pdf'
             target='_blank'
