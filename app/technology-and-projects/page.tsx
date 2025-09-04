@@ -1,4 +1,17 @@
+'use client';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
+
+// react-pdf-viewer only on client; SSR fallback
+const Worker = dynamic(
+  () => import('@react-pdf-viewer/core').then((mod) => mod.Worker),
+  { ssr: false }
+);
+const Viewer = dynamic(
+  () => import('@react-pdf-viewer/core').then((mod) => mod.Viewer),
+  { ssr: false }
+);
+import '@react-pdf-viewer/core/lib/styles/index.css';
 
 export default function TechnologyAndProjects() {
   return (
@@ -11,7 +24,6 @@ export default function TechnologyAndProjects() {
         alignItems: 'center',
       }}
     >
-      {/* Красный заголовок */}
       <div
         style={{
           color: '#d00015',
@@ -68,25 +80,31 @@ export default function TechnologyAndProjects() {
             minHeight: '300px',
             overflow: 'hidden',
             display: 'flex',
-            justifyContent: 'center',
+            flexDirection: 'column',
             alignItems: 'center',
-            padding: '24px',
+            padding: '24px 0',
           }}
         >
-          {/* Встраиваем PDF-файл */}
-          <iframe
-            src='/Presentation_of_an_energy-efficient_technical_solution.pdf'
-            width='100%'
-            height='600px'
+          {/* Клиентский PDF-плеер */}
+          <div style={{ width: '99%', minHeight: 400, background: '#fff' }}>
+            <Worker workerUrl='https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.js'>
+              <Viewer fileUrl='/Presentation_of_an_energy-efficient_technical_solution.pdf' />
+            </Worker>
+          </div>
+          <a
+            href='/Presentation_of_an_energy-efficient_technical_solution.pdf'
+            target='_blank'
+            rel='noopener'
             style={{
-              border: 'none',
-              borderRadius: '24px',
-              background: '#fff',
-              boxShadow: '0 2px 24px rgba(0,0,0,0.04)',
+              marginTop: '24px',
+              color: '#00a79d',
+              fontWeight: 600,
+              textDecoration: 'underline',
+              fontSize: '1.07rem',
             }}
-            title='PDF Presentation'
-            allowFullScreen
-          />
+          >
+            Скачать PDF
+          </a>
         </div>
       </div>
       <div style={{ height: '48px' }} />
@@ -128,10 +146,10 @@ export default function TechnologyAndProjects() {
             margin: 0 auto;
             display: block;
           }
-          iframe {
-            height: 48vw !important;
+        }
+        @media (max-width: 650px) {
+          .pdfViewer, .rpv-core__viewer {
             min-height: 230px !important;
-            max-height: 300px !important;
           }
         }
       `}</style>
