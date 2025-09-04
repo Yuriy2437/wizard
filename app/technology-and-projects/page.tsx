@@ -1,9 +1,5 @@
 'use client';
 import Link from 'next/link';
-import dynamic from 'next/dynamic';
-
-// Динамический импорт для client-only PDF-вьюера, избегая SSR и ошибок canvas
-const PDFViewerNoSSR = dynamic(() => import('./PdfViewer'), { ssr: false });
 
 export default function TechnologyAndProjects() {
   return (
@@ -77,8 +73,15 @@ export default function TechnologyAndProjects() {
             padding: '24px 0',
           }}
         >
-          {/* PDF-вьюер загружается только на клиенте */}
-          <PDFViewerNoSSR />
+          {/* Надёжный вариант встроить PDF без ошибок deploy */}
+          <div style={{ width: '99%', minHeight: 400, background: '#fff' }}>
+            <iframe
+              src='/Presentation_of_an_energy-efficient_technical_solution.pdf'
+              style={{ width: '100%', minHeight: 500, border: 'none' }}
+              allowFullScreen
+              title='PDF'
+            />
+          </div>
           <a
             href='/Presentation_of_an_energy-efficient_technical_solution.pdf'
             target='_blank'
@@ -133,11 +136,6 @@ export default function TechnologyAndProjects() {
             max-width: 370px;
             margin: 0 auto;
             display: block;
-          }
-        }
-        @media (max-width: 650px) {
-          .pdfViewer, .rpv-core__viewer {
-            min-height: 230px !important;
           }
         }
       `}</style>
