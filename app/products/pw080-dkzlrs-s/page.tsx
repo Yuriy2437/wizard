@@ -9,7 +9,6 @@ const specs: [string, string][] = [
   ['Heating Capacity Range (kW)', '10.2-28.0'],
   ['Heating Power Input Range (kW)', '2.17-6.56'],
   ['COP Range', '4.27-4.70'],
-
   [
     'DHW Condition - Ambient Temp.(DB/WB): 7/6°C, Water Temp.(In/Out): 15/55°C',
     '',
@@ -18,7 +17,6 @@ const specs: [string, string][] = [
   ['Heating Power Input Range (kW)', '2.9-5.57'],
   ['COP Range', '3.66-4.24'],
   ['Heated Water Output (L/H)', '437'],
-
   [
     'Cooling Condition - Ambient Temp.(DB/WB): 35/24°C, Water Temp.(In/Out): 12/7°C',
     '',
@@ -26,7 +24,6 @@ const specs: [string, string][] = [
   ['Cooling Capacity Range (kW)', '6.54-19.8'],
   ['Cooling Power Input Range (kW)', '2.02-7.17'],
   ['EER Range', '2.76-3.24'],
-
   ['Power Supply', '380V/3Ph/50-60Hz'],
   ['Max. Power Input (kW)', '10.1'],
   ['Max. Current (A)', '19'],
@@ -65,6 +62,7 @@ export default function ProductPW080S() {
       }}
     >
       <nav
+        className='main-nav'
         style={{
           display: 'flex',
           justifyContent: 'center',
@@ -134,37 +132,41 @@ export default function ProductPW080S() {
         >
           SPECIFICATIONS
         </div>
-        <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-          <tbody>
-            {specs.map(([spec, value], i) => (
-              <tr key={spec + i}>
-                <td
-                  style={{
-                    padding: '10px 16px 10px 0',
-                    color: '#212121',
-                    fontWeight: value === '' ? 600 : 500,
-                    fontSize: '1.02rem',
-                    borderBottom: '1px solid #ecdca4',
-                    width: '58%',
-                  }}
-                >
-                  {spec}
-                </td>
-                <td
-                  style={{
-                    padding: '10px 0',
-                    color: '#212121',
-                    fontWeight: 400,
-                    fontSize: '1.02rem',
-                    borderBottom: '1px solid #ecdca4',
-                  }}
-                >
-                  {value}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <div style={{ overflowX: 'auto' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+            <tbody>
+              {specs.map(([spec, value], i) => (
+                <tr key={spec + i}>
+                  <td
+                    style={{
+                      padding: '10px 16px 10px 0',
+                      color: '#212121',
+                      fontWeight: value === '' ? 600 : 500,
+                      fontSize: '1.02rem',
+                      borderBottom: '1px solid #ecdca4',
+                      width: '58%',
+                      minWidth: 150,
+                    }}
+                  >
+                    {spec}
+                  </td>
+                  <td
+                    style={{
+                      padding: '10px 0',
+                      color: '#212121',
+                      fontWeight: 400,
+                      fontSize: '1.02rem',
+                      borderBottom: '1px solid #ecdca4',
+                      minWidth: 80,
+                    }}
+                  >
+                    {value}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
       <style>{`
         .v-btn {
@@ -180,9 +182,38 @@ export default function ProductPW080S() {
           text-decoration: none;
           box-shadow: 0 2px 10px rgba(0,0,0,.05);
           cursor: pointer;
+          margin: 0;
         }
         .v-btn:hover {
           background: #009487;
+        }
+        .main-nav {
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          gap: 32px;
+          margin-bottom: 20px;
+        }
+        @media (max-width: 700px) {
+          .main-nav {
+            flex-direction: column !important;
+            gap: 16px !important;
+            align-items: center !important;
+          }
+          .v-btn {
+            width: 90vw;
+            max-width: 370px;
+            margin: 0 auto;
+            display: block;
+          }
+        }
+        @media (max-width: 650px) {
+          .specs-table, table {
+            font-size: .98rem !important;
+          }
+          td {
+            padding: 7px 4px 7px 0 !important;
+          }
         }
       `}</style>
     </main>

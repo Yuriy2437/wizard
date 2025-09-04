@@ -9,7 +9,6 @@ const specs: [string, string][] = [
   ['Heating Capacity Range (kW)', '9.6~24.0'],
   ['Heating Power Input Range (kW)', '1.83~6.30'],
   ['COP Range', '3.81~5.24'],
-
   [
     'DHW Condition - Ambient Temp.(DB/WB): 7/6℃, Water Temp.(In/Out): 15/55℃',
     '',
@@ -18,7 +17,6 @@ const specs: [string, string][] = [
   ['Heating Power Input Range (kW)', '1.89~5.60'],
   ['COP Range', '3.50~4.66'],
   ['Heated Water Output (L/H)', '421'],
-
   [
     'Cooling Condition - Ambient Temp.(DB/WB): 35/24℃, Water Temp.(In/Out): 12/7℃',
     '',
@@ -27,7 +25,6 @@ const specs: [string, string][] = [
   ['Cooling Power Input Range (kW)', '2.21~6.49'],
   ['EER Range', '2.62~3.12'],
   ['Heated Water Output (L/H)', '421'],
-
   [
     'Space Heating (According to EN14825:2022) Average Climate Water Outlet 35°C',
     '',
@@ -38,7 +35,6 @@ const specs: [string, string][] = [
   ['ErP Level', 'A+++'],
   ['Sound pressure level', '43'],
   ['Sound power level (dB(A))', '58'],
-
   [
     'Space Heating (According to EN14825:2022) Average Climate Water Outlet 55°C',
     '',
@@ -49,7 +45,6 @@ const specs: [string, string][] = [
   ['ErP Level', 'A++'],
   ['Sound pressure level', '43'],
   ['Sound power level (dB(A))', '58'],
-
   ['Power Supply', '230V/1Ph/50Hz -60Hz'],
   ['Max. Power Input (kW)', '78'],
   ['Max. Current (A)', '357'],
@@ -88,6 +83,7 @@ export default function ProductPW070() {
       }}
     >
       <nav
+        className='main-nav'
         style={{
           display: 'flex',
           justifyContent: 'center',
@@ -157,37 +153,41 @@ export default function ProductPW070() {
         >
           SPECIFICATIONS
         </div>
-        <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-          <tbody>
-            {specs.map(([spec, value], i) => (
-              <tr key={spec + i}>
-                <td
-                  style={{
-                    padding: '10px 16px 10px 0',
-                    color: '#212121',
-                    fontWeight: value === '' ? 600 : 500,
-                    fontSize: '1.02rem',
-                    borderBottom: '1px solid #ecdca4',
-                    width: '58%',
-                  }}
-                >
-                  {spec}
-                </td>
-                <td
-                  style={{
-                    padding: '10px 0',
-                    color: '#212121',
-                    fontWeight: 400,
-                    fontSize: '1.02rem',
-                    borderBottom: '1px solid #ecdca4',
-                  }}
-                >
-                  {value}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <div style={{ overflowX: 'auto' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+            <tbody>
+              {specs.map(([spec, value], i) => (
+                <tr key={spec + i}>
+                  <td
+                    style={{
+                      padding: '10px 16px 10px 0',
+                      color: '#212121',
+                      fontWeight: value === '' ? 600 : 500,
+                      fontSize: '1.02rem',
+                      borderBottom: '1px solid #ecdca4',
+                      width: '58%',
+                      minWidth: 150,
+                    }}
+                  >
+                    {spec}
+                  </td>
+                  <td
+                    style={{
+                      padding: '10px 0',
+                      color: '#212121',
+                      fontWeight: 400,
+                      fontSize: '1.02rem',
+                      borderBottom: '1px solid #ecdca4',
+                      minWidth: 80,
+                    }}
+                  >
+                    {value}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
       <style>{`
         .v-btn {
@@ -203,9 +203,38 @@ export default function ProductPW070() {
           text-decoration: none;
           box-shadow: 0 2px 10px rgba(0,0,0,.05);
           cursor: pointer;
+          margin: 0;
         }
         .v-btn:hover {
           background: #009487;
+        }
+        .main-nav {
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          gap: 32px;
+          margin-bottom: 20px;
+        }
+        @media (max-width: 700px) {
+          .main-nav {
+            flex-direction: column !important;
+            gap: 16px !important;
+            align-items: center !important;
+          }
+          .v-btn {
+            width: 90vw;
+            max-width: 370px;
+            margin: 0 auto;
+            display: block;
+          }
+        }
+        @media (max-width: 650px) {
+          .specs-table, table {
+            font-size: .98rem !important;
+          }
+          td {
+            padding: 7px 4px 7px 0 !important;
+          }
         }
       `}</style>
     </main>

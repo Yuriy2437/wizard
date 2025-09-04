@@ -26,6 +26,7 @@ export default function TechnologyAndProjects() {
         ENERGY-EFFICIENT TECHNICAL SOLUTION
       </div>
       <nav
+        className='main-nav'
         style={{
           display: 'flex',
           justifyContent: 'center',
@@ -103,9 +104,35 @@ export default function TechnologyAndProjects() {
           text-decoration: none;
           box-shadow: 0 2px 10px rgba(0,0,0,.05);
           cursor: pointer;
+          margin: 0;
         }
         .v-btn:hover {
           background: #009487;
+        }
+        .main-nav {
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          gap: 32px;
+          margin-bottom: 20px;
+        }
+        @media (max-width: 700px) {
+          .main-nav {
+            flex-direction: column !important;
+            gap: 16px !important;
+            align-items: center !important;
+          }
+          .v-btn {
+            width: 90vw;
+            max-width: 370px;
+            margin: 0 auto;
+            display: block;
+          }
+          iframe {
+            height: 48vw !important;
+            min-height: 230px !important;
+            max-height: 300px !important;
+          }
         }
       `}</style>
     </main>

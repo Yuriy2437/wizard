@@ -62,6 +62,7 @@ export default function ProductPW060S() {
       }}
     >
       <nav
+        className='main-nav'
         style={{
           display: 'flex',
           justifyContent: 'center',
@@ -131,37 +132,41 @@ export default function ProductPW060S() {
         >
           SPECIFICATIONS
         </div>
-        <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-          <tbody>
-            {specs.map(([spec, value], i) => (
-              <tr key={spec + i}>
-                <td
-                  style={{
-                    padding: '10px 16px 10px 0',
-                    color: '#212121',
-                    fontWeight: value === '' ? 600 : 500,
-                    fontSize: '1.02rem',
-                    borderBottom: '1px solid #ecdca4',
-                    width: '58%',
-                  }}
-                >
-                  {spec}
-                </td>
-                <td
-                  style={{
-                    padding: '10px 0',
-                    color: '#212121',
-                    fontWeight: 400,
-                    fontSize: '1.02rem',
-                    borderBottom: '1px solid #ecdca4',
-                  }}
-                >
-                  {value}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <div style={{ overflowX: 'auto' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+            <tbody>
+              {specs.map(([spec, value], i) => (
+                <tr key={spec + i}>
+                  <td
+                    style={{
+                      padding: '10px 16px 10px 0',
+                      color: '#212121',
+                      fontWeight: value === '' ? 600 : 500,
+                      fontSize: '1.02rem',
+                      borderBottom: '1px solid #ecdca4',
+                      width: '58%',
+                      minWidth: 150,
+                    }}
+                  >
+                    {spec}
+                  </td>
+                  <td
+                    style={{
+                      padding: '10px 0',
+                      color: '#212121',
+                      fontWeight: 400,
+                      fontSize: '1.02rem',
+                      borderBottom: '1px solid #ecdca4',
+                      minWidth: 80,
+                    }}
+                  >
+                    {value}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
       <style>{`
         .v-btn {
@@ -177,9 +182,38 @@ export default function ProductPW060S() {
           text-decoration: none;
           box-shadow: 0 2px 10px rgba(0,0,0,.05);
           cursor: pointer;
+          margin: 0;
         }
         .v-btn:hover {
           background: #009487;
+        }
+        .main-nav {
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          gap: 32px;
+          margin-bottom: 20px;
+        }
+        @media (max-width: 700px) {
+          .main-nav {
+            flex-direction: column !important;
+            gap: 16px !important;
+            align-items: center !important;
+          }
+          .v-btn {
+            width: 90vw;
+            max-width: 370px;
+            margin: 0 auto;
+            display: block;
+          }
+        }
+        @media (max-width: 650px) {
+          .specs-table, table {
+            font-size: .98rem !important;
+          }
+          td {
+            padding: 7px 4px 7px 0 !important;
+          }
         }
       `}</style>
     </main>

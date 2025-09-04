@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 
-// 1. Описываем тип модели
+// 1. Тип модели
 type ProductModel = {
   img: string;
   code: string;
@@ -128,118 +128,110 @@ const modelsR32: ProductModel[] = [
 const darkBlue = '#13356b';
 const sectionGap = 36;
 
-// 2. Явно типизируем пропсы в CardGrid
 function CardGrid({ models }: { models: ProductModel[] }) {
   return (
-    <div
-      style={{
-        width: '100%',
-        maxWidth: 1100,
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 48,
-        alignItems: 'center',
-      }}
-    >
-      {Array.from({ length: Math.ceil(models.length / 3) }).map(
-        (_, groupIndex) => (
+    <div className='products-grid'>
+      {models.map((model) => (
+        <div className='product-card' key={model.slug}>
+          <Link href={`/products/${model.slug}`} style={{ width: '100%' }}>
+            <Image
+              src={`/${model.img}`}
+              alt={model.code}
+              width={450}
+              height={300}
+              style={{
+                width: '100%',
+                height: '300px',
+                objectFit: 'contain',
+                borderRadius: '16px',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
+                background: '#f7e9bc',
+              }}
+            />
+          </Link>
           <div
-            key={groupIndex}
             style={{
               display: 'flex',
-              justifyContent: 'center',
-              gap: '40px',
+              flexDirection: 'column',
+              alignItems: 'center',
               width: '100%',
-              maxWidth: '1100px',
             }}
           >
-            {models
-              .slice(groupIndex * 3, groupIndex * 3 + 3)
-              .map((model: ProductModel) => (
-                <div
-                  key={model.slug}
-                  style={{
-                    background: '#fffbe6',
-                    borderRadius: '28px',
-                    boxShadow: '0 2px 24px rgba(0,0,0,.06)',
-                    width: 320,
-                    minHeight: 370,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    padding: '20px 14px 10px',
-                    position: 'relative',
-                  }}
-                >
-                  <Link
-                    href={`/products/${model.slug}`}
-                    // target='_blank'
-                    style={{ width: '100%' }}
-                  >
-                    <Image
-                      src={`/${model.img}`}
-                      alt={model.code}
-                      width={450}
-                      height={300}
-                      style={{
-                        width: '100%',
-                        height: '300px',
-                        objectFit: 'contain',
-                        borderRadius: '16px',
-                        boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
-                        background: '#f7e9bc',
-                      }}
-                    />
-                  </Link>
-                  <div
-                    style={{
-                      display: 'flex',
-                      flexDirection: 'column',
-                      alignItems: 'center',
-                      width: '100%',
-                    }}
-                  >
-                    <div
-                      style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        marginTop: 12,
-                      }}
-                    >
-                      <Image
-                        src={wizardMiniLogo}
-                        alt='Wizard Energy'
-                        width={82}
-                        height={52}
-                        style={{ marginRight: 12 }}
-                      />
-                      <span
-                        style={{
-                          fontWeight: 600,
-                          fontSize: '1.07rem',
-                          color: '#333',
-                          letterSpacing: '0.5px',
-                        }}
-                      >
-                        {model.code}
-                      </span>
-                    </div>
-                    <div
-                      style={{
-                        marginTop: 4,
-                        marginBottom: 0,
-                        fontSize: '1rem',
-                        color: '#1e1e1e',
-                      }}
-                    >
-                      {model.range}
-                    </div>
-                  </div>
-                </div>
-              ))}
+            <div
+              style={{ display: 'flex', alignItems: 'center', marginTop: 12 }}
+            >
+              <Image
+                src={wizardMiniLogo}
+                alt='Wizard Energy'
+                width={82}
+                height={52}
+                style={{ marginRight: 12 }}
+              />
+              <span
+                style={{
+                  fontWeight: 600,
+                  fontSize: '1.07rem',
+                  color: '#333',
+                  letterSpacing: '0.5px',
+                }}
+              >
+                {model.code}
+              </span>
+            </div>
+            <div
+              style={{
+                marginTop: 4,
+                marginBottom: 0,
+                fontSize: '1rem',
+                color: '#1e1e1e',
+              }}
+            >
+              {model.range}
+            </div>
           </div>
-        )
-      )}
+        </div>
+      ))}
+      <style>{`
+        .products-grid {
+          width: 100%;
+          max-width: 1100px;
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 40px 40px;
+          align-items: stretch;
+          justify-content: center;
+        }
+        .product-card {
+          background: #fffbe6;
+          border-radius: 28px;
+          box-shadow: 0 2px 24px rgba(0,0,0,.06);
+          min-height: 370px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          padding: 20px 14px 10px;
+          position: relative;
+          width: 100%;
+          max-width: 340px;
+          margin: 0 auto;
+        }
+        @media (max-width: 900px) {
+          .products-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 28px 16px;
+          }
+        }
+        @media (max-width: 700px) {
+          .products-grid {
+            grid-template-columns: 1fr;
+            gap: 18px 0;
+          }
+          .product-card {
+            max-width: 95vw;
+            min-width: 0;
+          }
+        }
+      `}</style>
     </div>
   );
 }
@@ -269,6 +261,7 @@ export default function Products() {
         AIR-TO-WATER HEAT PUMPS
       </div>
       <nav
+        className='main-nav'
         style={{
           display: 'flex',
           justifyContent: 'center',
@@ -335,6 +328,26 @@ export default function Products() {
         }
         .v-btn:hover {
           background: #009487;
+        }
+        .main-nav {
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          gap: 32px;
+          margin-bottom: 20px;
+        }
+        @media (max-width: 700px) {
+          .main-nav {
+            flex-direction: column !important;
+            gap: 16px !important;
+            align-items: center !important;
+          }
+          .v-btn {
+            width: 90vw;
+            max-width: 370px;
+            margin: 0 auto;
+            display: block;
+          }
         }
       `}</style>
     </main>
